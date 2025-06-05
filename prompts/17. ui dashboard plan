@@ -1,0 +1,259 @@
+Jako starszy programista frontendu Twoim zadaniem jest stworzenie szczegółowego planu wdrożenia nowego widoku w aplikacji internetowej. Plan ten powinien być kompleksowy i wystarczająco jasny dla innego programisty frontendowego, aby mógł poprawnie i wydajnie wdrożyć widok.
+
+Najpierw przejrzyj następujące informacje:
+
+1. Product Requirements Document (PRD):
+<prd>
+@prd.md
+</prd>
+
+2. Opis widoku:
+<view_description>
+
+- **Ścieżka widoku:** `/dashboard`
+- **Główny cel:** Prezentacja przeglądu projektów i statystyk, umożliwienie szybkiego dostępu do kluczowych funkcji systemu.
+- **Kluczowe informacje:** Lista projektów, podsumowanie statusów analiz oraz szybkie linki do akcji (dodanie projektu, edycja, eksport hipotez).
+- **Kluczowe komponenty:** Karty podsumowujące, tabele/listy, przyciski nawigacyjne, filtry i sortowanie.
+- **UX, dostępność i bezpieczeństwo:** Responsywny layout, czytelna prezentacja danych, wysoka dostępność informacji, uwzględnienie zasad kontrastu i łatwości nawigacji.
+
+</view_description>
+
+3. User Stories:
+<user_stories>
+US-002: Przegląd, edycja i akceptacja hipotez
+- Tytuł: Przegląd, edycja i akceptacja hipotez
+- Opis: Jako użytkownik chcę mieć możliwość przeglądania wygenerowanych hipotez, ich edycji oraz akceptacji lub odrzucenia, aby dostosować je do swoich potrzeb.
+- Kryteria akceptacji:
+  - Hipotezy prezentowane są z podziałem na: obserwację, zmianę i oczekiwany rezultat.
+  - Użytkownik ma możliwość edytowania zawartości hipotezy.
+  - System zapisuje status hipotezy (zaakceptowana/odrzucona).
+
+  US-003: Eksport hipotez do CSV
+- Tytuł: Eksport hipotez do CSV
+- Opis: Jako użytkownik chcę wyeksportować zatwierdzone hipotezy do pliku CSV lub zintegrować je z narzędziami zarządzania zadaniami, aby móc łatwo dzielić się wynikami.
+- Kryteria akceptacji:
+  - System generuje plik CSV z kolumnami odpowiadającymi elementom hipotezy.
+  - Eksport działa poprawnie i umożliwia integrację z wybranymi narzędziami.
+
+
+</user_stories>
+
+4. Endpoint Description:
+<endpoint_description>
+
+### Projects Endpoints
+- **POST /projects**  
+  *Description*: Creates a new project from a URL to initiate analysis.  
+  *Request JSON*: 
+  ```json
+  {
+    "title": "string",
+    "url": "string",
+    "description": "string (optional)"
+  }
+  ```  
+  *Response*: 201 Created with project details.  
+  *Validation*: Must validate that `url` is properly formatted.
+
+- **GET /projects**  
+  *Description*: Retrieves a paginated list of projects.  
+  *Query Parameters*: `page`, `limit`, `sort`, `filter` (e.g., by status).  
+  *Response*: 200 OK with list of projects.
+
+- **GET /projects/{projectId}**  
+  *Description*: Retrieves details of a specific project, including associations.  
+  *Response*: 200 OK with project details.
+
+- **PUT /projects/{projectId}**  
+  *Description*: Fully updates a project.  
+  *Request JSON*: Same as creation payload.  
+  *Response*: 200 OK with updated project details.
+
+- **PATCH /projects/{projectId}**  
+  *Description*: Partially updates fields of a project.  
+  *Response*: 200 OK with updated project details.
+
+- **DELETE /projects/{projectId}**  
+  *Description*: Deletes a project and cascades deletion to associated hypotheses.  
+  *Response*: 200 OK or 204 No Content.
+
+- **POST /projects/{projectId}/analyze**  
+  *Description*: Triggers AI-based analysis of the project URL to generate a preliminary evaluation.  
+  *Response*: 202 Accepted indicating analysis is in progress.
+
+- **PATCH /projects/{projectId}/evaluate**  
+  *Description*: Submits user responses from the interactive project assessment process.  
+  *Request JSON*: 
+  ```json
+  {
+    "responses": { "questionId": "answer", "...": "..." }
+  }
+  ```  
+  *Response*: 200 OK with final assessment details.
+
+### Hypotheses Endpoints (Sub-resource of Projects)
+- **POST /projects/{projectId}/hypotheses**  
+  *Description*: Creates a new hypothesis either manually or as a result of AI analysis.  
+  *Request JSON*: 
+  ```json
+  {
+    "observation": "string",
+    "change": "string",
+    "expected_result": "string"
+  }
+  ```  
+  *Response*: 201 Created with hypothesis details.  
+  *Validation*: All text fields must be non-empty; `status` defaults to `pending`.
+
+- **GET /projects/{projectId}/hypotheses**  
+  *Description*: Retrieves a paginated list of hypotheses for a project.  
+  *Query Parameters*: `page`, `limit`, `status` (e.g., pending, accepted, rejected).  
+  *Response*: 200 OK with a list of hypotheses.
+
+- **GET /projects/{projectId}/hypotheses/{hypothesisId}**  
+  *Description*: Retrieves details of a specific hypothesis.  
+  *Response*: 200 OK with hypothesis details.
+
+- **PATCH /projects/{projectId}/hypotheses/{hypothesisId}**  
+  *Description*: Updates a hypothesis (e.g., edit content, change status to accepted/rejected).  
+  *Request JSON*: 
+  ```json
+  {
+    "observation": "string (optional)",
+    "change": "string (optional)",
+    "expected_result": "string (optional)",
+    "status": "pending | accepted | rejected (optional)"
+  }
+  ```  
+  *Response*: 200 OK with updated hypothesis details.
+
+- **DELETE /projects/{projectId}/hypotheses/{hypothesisId}**  
+  *Description*: Deletes a hypothesis.  
+  *Response*: 200 OK or 204 No Content.
+
+- **POST /projects/{projectId}/hypotheses/{hypothesisId}/rate**  
+  *Description*: Rates a hypothesis as either good or bad.  
+  *Request JSON*: 
+  ```json
+  {
+    "rating": "good | bad"
+  }
+  ```  
+  *Response*: 200 OK with updated hypothesis rating.
+
+- **GET /projects/{projectId}/hypotheses/export**  
+  *Description*: Exports hypotheses meeting specified criteria (typically accepted ones) as a CSV file.  
+  *Query Parameters*: Optional `status` filter.  
+  *Response*: 200 OK with CSV file content.
+
+
+
+</endpoint_description>
+
+5. Endpoint Implementation:
+<endpoint_implementation>
+@projects.ts @rate.ts [hypothsesId].ts 
+</endpoint_implementation>
+
+6. Type Definitions:
+<type_definitions>
+@types.ts</type_definitions>
+
+7. Tech Stack:
+<tech_stack>
+@tech-stack.md</tech_stack>
+
+Przed utworzeniem ostatecznego planu wdrożenia przeprowadź analizę i planowanie wewnątrz tagów <implementation_breakdown> w swoim bloku myślenia. Ta sekcja może być dość długa, ponieważ ważne jest, aby być dokładnym.
+
+W swoim podziale implementacji wykonaj następujące kroki:
+1. Dla każdej sekcji wejściowej (PRD, User Stories, Endpoint Description, Endpoint Implementation, Type Definitions, Tech Stack):
+  - Podsumuj kluczowe punkty
+ - Wymień wszelkie wymagania lub ograniczenia
+ - Zwróć uwagę na wszelkie potencjalne wyzwania lub ważne kwestie
+2. Wyodrębnienie i wypisanie kluczowych wymagań z PRD
+3. Wypisanie wszystkich potrzebnych głównych komponentów, wraz z krótkim opisem ich opisu, potrzebnych typów, obsługiwanych zdarzeń i warunków walidacji
+4. Stworzenie wysokopoziomowego diagramu drzewa komponentów
+5. Zidentyfikuj wymagane DTO i niestandardowe typy ViewModel dla każdego komponentu widoku. Szczegółowo wyjaśnij te nowe typy, dzieląc ich pola i powiązane typy.
+6. Zidentyfikuj potencjalne zmienne stanu i niestandardowe hooki, wyjaśniając ich cel i sposób ich użycia
+7. Wymień wymagane wywołania API i odpowiadające im akcje frontendowe
+8. Zmapuj każdej historii użytkownika do konkretnych szczegółów implementacji, komponentów lub funkcji
+9. Wymień interakcje użytkownika i ich oczekiwane wyniki
+10. Wymień warunki wymagane przez API i jak je weryfikować na poziomie komponentów
+11. Zidentyfikuj potencjalne scenariusze błędów i zasugeruj, jak sobie z nimi poradzić
+12. Wymień potencjalne wyzwania związane z wdrożeniem tego widoku i zasugeruj możliwe rozwiązania
+
+Po przeprowadzeniu analizy dostarcz plan wdrożenia w formacie Markdown z następującymi sekcjami:
+
+1. Przegląd: Krótkie podsumowanie widoku i jego celu.
+2. Routing widoku: Określenie ścieżki, na której widok powinien być dostępny.
+3. Struktura komponentów: Zarys głównych komponentów i ich hierarchii.
+4. Szczegóły komponentu: Dla każdego komponentu należy opisać:
+ - Opis komponentu, jego przeznaczenie i z czego się składa
+ - Główne elementy HTML i komponenty dzieci, które budują komponent
+ - Obsługiwane zdarzenia
+ - Warunki walidacji (szczegółowe warunki, zgodnie z API)
+ - Typy (DTO i ViewModel) wymagane przez komponent
+ - Propsy, które komponent przyjmuje od rodzica (interfejs komponentu)
+5. Typy: Szczegółowy opis typów wymaganych do implementacji widoku, w tym dokładny podział wszelkich nowych typów lub modeli widoku według pól i typów.
+6. Zarządzanie stanem: Szczegółowy opis sposobu zarządzania stanem w widoku, określenie, czy wymagany jest customowy hook.
+7. Integracja API: Wyjaśnienie sposobu integracji z dostarczonym punktem końcowym. Precyzyjnie wskazuje typy żądania i odpowiedzi.
+8. Interakcje użytkownika: Szczegółowy opis interakcji użytkownika i sposobu ich obsługi.
+9. Warunki i walidacja: Opisz jakie warunki są weryfikowane przez interfejs, których komponentów dotyczą i jak wpływają one na stan interfejsu
+10. Obsługa błędów: Opis sposobu obsługi potencjalnych błędów lub przypadków brzegowych.
+11. Kroki implementacji: Przewodnik krok po kroku dotyczący implementacji widoku.
+
+Upewnij się, że Twój plan jest zgodny z PRD, historyjkami użytkownika i uwzględnia dostarczony stack technologiczny.
+
+Ostateczne wyniki powinny być w języku polskim i zapisane w pliku o nazwie .ai/dashboard-view-implementation-plan.md. Nie uwzględniaj żadnej analizy i planowania w końcowym wyniku.
+
+Oto przykład tego, jak powinien wyglądać plik wyjściowy (treść jest do zastąpienia):
+
+```markdown
+# Plan implementacji widoku [Nazwa widoku]
+
+## 1. Przegląd
+[Krótki opis widoku i jego celu]
+
+## 2. Routing widoku
+[Ścieżka, na której widok powinien być dostępny]
+
+## 3. Struktura komponentów
+[Zarys głównych komponentów i ich hierarchii]
+
+## 4. Szczegóły komponentów
+### [Nazwa komponentu 1]
+- Opis komponentu [opis]
+- Główne elementy: [opis]
+- Obsługiwane interakcje: [lista]
+- Obsługiwana walidacja: [lista, szczegółowa]
+- Typy: [lista]
+- Propsy: [lista]
+
+### [Nazwa komponentu 2]
+[...]
+
+## 5. Typy
+[Szczegółowy opis wymaganych typów]
+
+## 6. Zarządzanie stanem
+[Opis zarządzania stanem w widoku]
+
+## 7. Integracja API
+[Wyjaśnienie integracji z dostarczonym endpointem, wskazanie typów żądania i odpowiedzi]
+
+## 8. Interakcje użytkownika
+[Szczegółowy opis interakcji użytkownika]
+
+## 9. Warunki i walidacja
+[Szczegółowy opis warunków i ich walidacji]
+
+## 10. Obsługa błędów
+[Opis obsługi potencjalnych błędów]
+
+## 11. Kroki implementacji
+1. [Krok 1]
+2. [Krok 2]
+3. [...]
+```
+
+Rozpocznij analizę i planowanie już teraz. Twój ostateczny wynik powinien składać się wyłącznie z planu wdrożenia w języku polskim w formacie markdown, który zapiszesz w pliku .ai/{view-name}-view-implementation-plan.md i nie powinien powielać ani powtarzać żadnej pracy wykonanej w podziale implementacji.

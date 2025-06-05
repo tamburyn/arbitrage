@@ -1,0 +1,133 @@
+Jesteś doświadczonym menedżerem produktu, którego zadaniem jest stworzenie kompleksowego dokumentu wymagań produktu (PRD) w oparciu o poniższe opisy:
+
+<project_description>
+
+### Główny problem
+Współczesne zespoły produktowe, mimo znajomości metodologii testów A/B, często rezygnują z ich przeprowadzania lub ograniczają się do podstawowych eksperymentów z powodu braku standaryzowanego procesu tworzenia hipotez, niedoboru zasobów i kompetencji, trudności w analizie wyników, obaw przed negatywnym wpływem testów na kluczowe wskaźniki oraz problemów z wdrożeniem narzędzi w istniejącej infrastrukturze; w efekcie tracą szansę na systematyczne doskonalenie produktu w oparciu o dane.
+
+### Najmniejszy zestaw funkcjonalności
+- Generowanie hipotez A/B za pomocą AI: Użytkownik wprowadza adres URL strony, a aplikacja analizuje ją i proponuje hipotezy testowe
+- Strukturyzacja hipotez: Każda hipoteza zawiera elementy: obserwacja, zmiana, oczekiwany rezultat
+- Edycja i zatwierdzanie hipotez: Użytkownik może przeglądać, edytować i akceptować lub odrzucać wygenerowane hipotezy
+- Eksport hipotez: Możliwość eksportu zatwierdzonych hipotez do pliku CSV lub integracja z popularnymi narzędziami do zarządzania zadaniami
+- Prosty system kont użytkowników: Rejestracja i logowanie, przechowywanie historii wygenerowanych hipotez
+
+### Co NIE wchodzi w zakres MVP
+- Zaawansowana analiza danych: Brak funkcji głębokiej analizy wyników testów A/B w czasie rzeczywistym
+- Personalizacja na podstawie segmentacji użytkowników: Brak możliwości dostosowywania hipotez do konkretnych segmentów użytkowników
+- Integracje z narzędziami analitycznymi: Brak bezpośrednich integracji z narzędziami typu Google Analytics, Hotjar itp
+- Aplikacje mobilne: Na początek dostępna tylko wersja webowa
+- Obsługa wielu języków: Interfejs i generowane hipotezy dostępne tylko w języku angielskim
+
+### Kryteria sukcesu
+- Akceptacja hipotez: Minimum 70% wygenerowanych hipotez jest akceptowanych przez użytkowników bez konieczności edycji
+- Zaangażowanie użytkowników: Minimum 40% zarejestrowanych użytkowników generuje hipotezy do conajmniej 10 stron do 30 dni po rejestracji
+
+</project_description>
+
+<project_details>
+
+<conversation_summary>
+<decisions>
+1. Uznano, że podstawowy problem produktu to trudność efektywnego generowania hipotez przy jednoczesnej wysokiej złożoności kosztowej (koszty narzędzi, implementacja, zaangażowanie deweloperów), przy czym główny problem pozostaje kluczowy.
+2. W MVP analiza strony ma bazować głównie na statycznych elementach (nagłówki, CTA, teksty, cenniki, style graficzne przycisków i obrazów) z opcjonalną, dodatkowo płatną integracją z Google Analytics 4 aby wzmocnić podstawy hipotez danymi.
+3. Do analizy strony wykorzystamy modele AI OpenAI.
+4. Użytkownik będzie aktywnie zaangażowany podczas onboardingu – po dodaniu strony system zada dodatkowe pytania w celu potwierdzenia założeń dotyczących celów biznesowych i grupy docelowej, a później proces generowania hipotez będzie automatyczny, z możliwością edycji opisu projektu.
+5. System kont ma obejmować rejestrację oAuth, odzyskiwanie hasła, weryfikację dwuetapową oraz system ról (właściciel, admin, edytor, komentujący, oglądający).
+6. Kryteria sukcesu będą mierzone przy użyciu Google Analytics 4 oraz Posthog, obejmując konwersję na rejestrację, zakupy, liczbę generowanych hipotez na użytkownika i retencję.
+7. W dokumentacji uwzględniamy wymagania bezpieczeństwa i compliance, szczególnie w kontekście rejestracji i weryfikacji użytkowników.
+</decisions>
+
+<matched_recommendations>
+1. Uzupełnienie definicji problemu o aspekt kosztowy narzędzi i zaangażowania developerów (wzmianka, ale nie dominująca).
+2. Dokładne określenie zakresu analizowanych danych wejściowych na stronie oraz opcjonalna integracja z GA4 jako funkcja dodatkowo płatna.
+3. Wykorzystanie modeli OpenAI jako technologii analizy strony.
+4. Stworzenie workflow, w którym użytkownik uczestniczy we wczesnym etapie onboardingu, potwierdza założenia, a następnie proces generowania hipotez staje się automatyczny.
+5. Zdefiniowanie mierzalnych kryteriów sukcesu zgodnie z przyjętymi metrykami oraz zastosowanie systemu kont z zaawansowanymi funkcjami bezpieczeństwa.
+</matched_recommendations>
+
+<prd_planning_summary>
+Główne wymagania funkcjonalne:
+• Analiza strony pod kątem statycznych elementów (nagłówki, CTA, teksty, cenniki, treści konwersyjne, elementy graficzne) przy użyciu modeli AI OpenAI.
+• Opcjonalna integracja z Google Analytics 4 jako funkcjonalność premium.
+• Możliwość samodzielnego dodawania hipotez.
+• System zarządzania projektami, w którym użytkownik odpowiada na pytania podczas onboardingu oraz ma możliwość edycji założeń.
+• System kont użytkowników (rejestracja oAuth, odzyskiwanie hasła, weryfikacja dwuetapowa, role).
+Kluczowe historie użytkownika i ścieżki korzystania:
+• Użytkownik dodaje stronę i odpowiada na serię pytań dotyczących celów biznesowych, grupy docelowej i założeń.
+• Po zatwierdzeniu założeń system automatycznie generuje hipotezy, które użytkownik może zaakceptować lub odrzucić.
+• Użytkownik ma możliwość edycji opisu projektu i założeń na dowolnym etapie wykorzystując wsparcie AI.
+Ważne kryteria sukcesu:
+• Wskaźniki konwersji (rejestracja, zakup).
+• Liczba generowanych hipotez na użytkownika.
+• Retencja użytkowników.
+• Monitorowane przy użyciu Google Analytics 4 oraz Poshog.
+Nierozwiązane kwestie lub obszary wymagające dalszych wyjaśnień:
+• Szczegółowy zakres danych potrzebnych do wstępnej analizy strony, mimo że zakres elementów strony został ogólnie określony.
+• Ostateczne wymagania dotyczące technicznych interfejsów integracji (szczególnie opcjonalnej integracji z GA4).
+</prd_planning_summary>
+
+<unresolved_issues>
+• Konkretne specyfikacje dotyczące rodzajów danych wejściowych i sposobu ich przetwarzania podczas analizy strony mogą wymagać dalszego doprecyzowania.
+• Szczegóły dotyczące implementacji integracji z GA4 oraz ewentualnych warunków, na jakich funkcjonalność ta staje się płatna.
+</unresolved_issues>
+</conversation_summary>
+
+</project_details>
+
+Wykonaj następujące kroki, aby stworzyć kompleksowy i dobrze zorganizowany dokument:
+
+1. Podziel PRD na następujące sekcje:
+   a. Przegląd projektu
+   b. Problem użytkownika
+   c. Wymagania funkcjonalne
+   d. Granice projektu
+   e. Historie użytkownika
+   f. Metryki sukcesu
+
+2. W każdej sekcji należy podać szczegółowe i istotne informacje w oparciu o opis projektu i odpowiedzi na pytania wyjaśniające. Upewnij się, że:
+   - Używasz jasnego i zwięzłego języka
+   - W razie potrzeby podajesz konkretne szczegóły i dane
+   - Zachowujesz spójność w całym dokumencie
+   - Odnosisz się do wszystkich punktów wymienionych w każdej sekcji
+
+3. Podczas tworzenia historyjek użytkownika i kryteriów akceptacji
+   - Wymień WSZYSTKIE niezbędne historyjki użytkownika, w tym scenariusze podstawowe, alternatywne i skrajne.
+   - Przypisz unikalny identyfikator wymagań (np. US-001) do każdej historyjki użytkownika w celu bezpośredniej identyfikowalności.
+   - Uwzględnij co najmniej jedną historię użytkownika specjalnie dla bezpiecznego dostępu lub uwierzytelniania, jeśli aplikacja wymaga identyfikacji użytkownika lub ograniczeń dostępu.
+   - Upewnij się, że żadna potencjalna interakcja użytkownika nie została pominięta.
+   - Upewnij się, że każda historia użytkownika jest testowalna.
+
+Użyj następującej struktury dla każdej historii użytkownika:
+- ID
+- Tytuł
+- Opis
+- Kryteria akceptacji
+
+4. Po ukończeniu PRD przejrzyj go pod kątem tej listy kontrolnej:
+   - Czy każdą historię użytkownika można przetestować?
+   - Czy kryteria akceptacji są jasne i konkretne?
+   - Czy mamy wystarczająco dużo historyjek użytkownika, aby zbudować w pełni funkcjonalną aplikację?
+   - Czy uwzględniliśmy wymagania dotyczące uwierzytelniania i autoryzacji (jeśli dotyczy)?
+
+5. Formatowanie PRD:
+   - Zachowaj spójne formatowanie i numerację.
+   - Nie używaj pogrubionego formatowania w markdown ( ** ).
+   - Wymień WSZYSTKIE historyjki użytkownika.
+   - Sformatuj PRD w poprawnym markdown.
+
+Przygotuj PRD z następującą strukturą:
+
+```markdown
+# Dokument wymagań produktu (PRD) - {{app-name}}
+## 1. Przegląd produktu
+## 2. Problem użytkownika
+## 3. Wymagania funkcjonalne
+## 4. Granice produktu
+## 5. Historyjki użytkowników
+## 6. Metryki sukcesu
+```
+
+Pamiętaj, aby wypełnić każdą sekcję szczegółowymi, istotnymi informacjami w oparciu o opis projektu i nasze pytania wyjaśniające. Upewnij się, że PRD jest wyczerpujący, jasny i zawiera wszystkie istotne informacje potrzebne do dalszej pracy nad produktem.
+
+Ostateczny wynik powinien składać się wyłącznie z PRD zgodnego ze wskazanym formatem w markdown, który zapiszesz w pliku .ai/prd.md

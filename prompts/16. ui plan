@@ -1,0 +1,103 @@
+Jesteś wykwalifikowanym architektem frontend, którego zadaniem jest stworzenie kompleksowej architektury interfejsu użytkownika w oparciu o dokument wymagań produktu (PRD), plan API i notatki z sesji planowania. Twoim celem jest zaprojektowanie struktury interfejsu użytkownika, która skutecznie spełnia wymagania produktu, jest zgodna z możliwościami API i zawiera spostrzeżenia z sesji planowania.
+
+Najpierw dokładnie przejrzyj następujące dokumenty:
+
+Dokument wymagań produktu (PRD):
+<prd>
+@prd.md
+</prd>
+
+Plan API:
+<api_plan>
+@api-plan.md</api_plan>
+
+Session Notes:
+<session_notes>
+
+<conversation_summary>
+<decisions>
+1. Zaprojektować kluczowe widoki: ekran logowania, rejestracji, widok projektu, dashboard oraz widok dodawania strony z audytem, zgodnie z wymaganiami PRD i strukturą API.  
+2. Wdrożyć hybrydowe podejście, używając Astro do generowania statycznych stron oraz React z Shadcn/ui do dynamicznych i interaktywnych komponentów, z rozwijalnym menu bocznym umieszczonym po lewej stronie.  
+3. Zastosować React Query do zarządzania stanem w celu skutecznej synchronizacji danych między interfejsem a backendem oraz obsługi stanów ładowania, błędów i aktualizacji.  
+4. Opracować spójny zestaw komponentów feedbacku (powiadomienia, alerty, modale) oparty na Shadcn/ui, aby informować użytkownika o wynikach operacji oraz ewentualnych błędach.  
+5. Zaprojektować interfejs responsywnie przy użyciu Tailwind CSS z precyzyjnie zdefiniowanymi punktami przerwania dla optymalnego działania na różnych urządzeniach.  
+6. Umieścić funkcjonalności UI związane z zarządzaniem zespołem w sekcji ustawień, umożliwiając efektywne zarządzanie rolami użytkowników.  
+7. Zachować minimalistyczny design, wykorzystując potencjał Tailwind CSS wraz z komponentami Shadcn/ui, aby utrzymać spójność wizualną.  
+8. Wdrożyć najlepsze standardy bezpieczeństwa interfejsu (HTTPS, bezpieczne przechowywanie tokenów, ochrona przed XSS/CSRF, restrykcyjne polityki CORS oraz wytyczne OWASP).
+</decisions>
+<matched_recommendations>
+1. Hybrydowe podejście oparte na Astro i React z Shadcn/ui.  
+2. Zarządzanie stanem przy użyciu React Query.  
+3. Implementacja komponentów feedbacku (powiadomienia, alerty, modale) przy użyciu Shadcn/ui.  
+4. Responsywny design z wykorzystaniem Tailwind CSS.  
+5. Integracja UI z backendowym API zgodnie z wymaganiami PRD.  
+6. Wdrożenie najlepszych praktyk bezpieczeństwa interfejsu zgodnie z wytycznymi OWASP.
+</matched_recommendations>
+<ui_architecture_planning_summary>
+Projekt architektury UI dla MVP obejmuje stworzenie kluczowych ekranów: logowania, rejestracji, widoku projektu, dashboardu oraz widoku dodawania strony z audytem – wszystko zgodnie z wymaganiami PRD i strukturą API. Interfejs będzie oparty na hybrydowym podejściu, gdzie Astro generuje statyczne strony, a React z Shadcn/ui odpowiada za dynamiczną warstwę, umożliwiając płynną nawigację dzięki rozwijalnemu menu bocznemu po lewej stronie.  
+Stan aplikacji będzie zarządzany przez React Query, co zapewni efektywną synchronizację z backendem oraz obsługę stanów ładowania, błędów i aktualizacji danych. Interfejs zostanie zaprojektowany responsywnie przy użyciu Tailwind CSS z precyzyjnie określonymi punktami przerwania, aby zapewnić optymalne działanie na wszystkich urządzeniach. Design jest minimalistyczny i spójny, bazując na komponentach Shadcn/ui.  
+Dodatkowo, elementy zarządzania zespołem (w tym zarządzanie rolami użytkowników) zostaną umieszczone w dedykowanej sekcji ustawień. W aspekcie bezpieczeństwa wdrożone zostaną standardy, takie jak stosowanie HTTPS, bezpieczne przechowywanie tokenów (np. HttpOnly cookies), ochrona przed atakami XSS/CSRF poprzez sanitizację danych, restrykcyjne polityki CORS oraz zgodność z wytycznymi OWASP.
+</ui_architecture_planning_summary>
+<unresolved_issues>
+Obecnie nie zidentyfikowano żadnych nierozwiązanych kwestii – wszystkie istotne aspekty architektury UI zostały omówione. W przyszłości mogą pojawić się szczegółowe pytania dotyczące implementacji przepływów użytkownika lub konkretnej konfiguracji komponentów, w razie potrzeby dalsze wyjaśnienia będą wdrażane.
+</unresolved_issues>
+</conversation_summary>
+
+
+</session_notes>
+
+Twoim zadaniem jest stworzenie szczegółowej architektury interfejsu użytkownika, która obejmuje niezbędne widoki, mapowanie podróży użytkownika, strukturę nawigacji i kluczowe elementy dla każdego widoku. Projekt powinien uwzględniać doświadczenie użytkownika, dostępność i bezpieczeństwo.
+
+Wykonaj następujące kroki, aby ukończyć zadanie:
+
+1. Dokładnie przeanalizuj PRD, plan API i notatki z sesji.
+2. Wyodrębnij i wypisz kluczowe wymagania z PRD.
+3. Zidentyfikuj i wymień główne punkty końcowe API i ich cele.
+4. Utworzenie listy wszystkich niezbędnych widoków na podstawie PRD, planu API i notatek z sesji.
+5. Określenie głównego celu i kluczowych informacji dla każdego widoku.
+6. Zaplanuj podróż użytkownika między widokami, w tym podział krok po kroku dla głównego przypadku użycia.
+7. Zaprojektuj strukturę nawigacji.
+8. Zaproponuj kluczowe elementy interfejsu użytkownika dla każdego widoku, biorąc pod uwagę UX, dostępność i bezpieczeństwo.
+9. Rozważ potencjalne przypadki brzegowe lub stany błędów.
+10. Upewnij się, że architektura interfejsu użytkownika jest zgodna z planem API.
+11. Przejrzenie i zmapowanie wszystkich historyjek użytkownika z PRD do architektury interfejsu użytkownika.
+12. Wyraźne mapowanie wymagań na elementy interfejsu użytkownika.
+13. Rozważ potencjalne punkty bólu użytkownika i sposób, w jaki interfejs użytkownika je rozwiązuje.
+
+Dla każdego głównego kroku pracuj wewnątrz tagów <ui_architecture_planning> w bloku myślenia, aby rozbić proces myślowy przed przejściem do następnego kroku. Ta sekcja może być dość długa. To w porządku, że ta sekcja może być dość długa.
+
+Przedstaw ostateczną architekturę interfejsu użytkownika w następującym formacie Markdown:
+
+```markdown
+# Architektura UI dla [Nazwa produktu]
+
+## 1. Przegląd struktury UI
+
+[Przedstaw ogólny przegląd struktury UI]
+
+## 2. Lista widoków
+
+[Dla każdego widoku podaj:
+- Nazwa widoku
+- Ścieżka widoku
+- Główny cel
+- Kluczowe informacje do wyświetlenia
+- Kluczowe komponenty widoku
+- UX, dostępność i względy bezpieczeństwa]
+
+## 3. Mapa podróży użytkownika
+
+[Opisz przepływ między widokami i kluczowymi interakcjami użytkownika]
+
+## 4. Układ i struktura nawigacji
+
+[Wyjaśnij, w jaki sposób użytkownicy będą poruszać się między widokami]
+
+## 5. Kluczowe komponenty
+
+[Wymień i krótko opisz kluczowe komponenty, które będą używane w wielu widokach].
+```
+
+Skup się wyłącznie na architekturze interfejsu użytkownika, podróży użytkownika, nawigacji i kluczowych elementach dla każdego widoku. Nie uwzględniaj szczegółów implementacji, konkretnego projektu wizualnego ani przykładów kodu, chyba że są one kluczowe dla zrozumienia architektury.
+
+Końcowy rezultat powinien składać się wyłącznie z architektury UI w formacie Markdown w języku polskim, którą zapiszesz w pliku .ai/ui-plan.md. Nie powielaj ani nie powtarzaj żadnej pracy wykonanej w bloku myślenia.

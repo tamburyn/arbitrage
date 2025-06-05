@@ -1,0 +1,63 @@
+1. Zdefiniować osobny ekran logowania/rejestracji z uwzględnieniem opcji oAuth, odzyskiwania hasła oraz walidacji w czasie rzeczywistym.
+
+2. Zaprojektować dashboard z wyraźną listą projektów/eksperymentów, umożliwiający filtrowanie, sortowanie i wyszukiwanie, co pozwoli użytkownikowi szybko odnaleźć interesujące go informacje.
+
+3. Stworzyć wieloetapowy proces onboardingowy dla dodawania nowego projektu, obejmujący: wklejenie URL, analizę w tle przez AI, interaktywną sesję zadawania pytań oraz finalne zapisanie projektu.
+
+4. Implementować mechanizmy informujące użytkownika o statusie analizy URL, takie jak loading spinner, pasek postępu lub powiadomienia, a w przypadku braku wyników odpowiednio obsłużyć stan pusty lub błąd.
+
+5. Zautomatyzować przekierowanie użytkownika – po zakończeniu analizy projekt powinien być zapisany, a użytkownik przeniesiony do głównego widoku listy projektów, umożliwiając dalsze działania.
+
+6. Wykorzystać sprawdzone komponenty z biblioteki Shadcn/ui wraz z Tailwind CSS, aby zapewnić spójny, responsywny i przyjazny design interfejsu użytkownika.
+
+7. Zintegrować mechanizmy autoryzacji oraz zarządzania tokenami JWT, dbając o ich bezpieczne przechowywanie oraz wyświetlanie odpowiednich komunikatów błędów w przypadku nieprawidłowości.
+
+8. Wdrożyć strategię zarządzania stanem za pomocą narzędzi takich jak React Query lub SWR, aby zapewnić wydajne pobieranie, synchronizację i buforowanie danych z API.
+
+9. Zaprojektować intuicyjną i prostą w nawigacji strukturę aplikacji, z podziałem na główne sekcje (projekty, hipotezy, ustawienia, konta) oraz z możliwością łatwego przechodzenia między widokami.
+
+
+10. Rozważyć implementację dynamicznych modali oraz interaktywnych elementów potwierdzających operacje (np. edycja hipotez) w celu poprawy doświadczenia użytkownika (UX).
+
+11. Zaplanować wyraźny widoczny panel lub sekcję do zarządzania rolami i członkostwem w projekcie, aby użytkownicy mieli przejrzysty podgląd swoich uprawnień i możliwych działań.
+
+12. Upewnić się, że projekt UI spełnia standardy dostępności WCAG oraz jest zoptymalizowany pod kątem responsywności, dostosowując interfejs do różnych urządzeń (mobilne, tablety, desktopy).
+
+
+
+---
+
+Jesteś asystentem AI, którego zadaniem jest podsumowanie rozmowy na temat planowania architektury UI dla MVP i przygotowanie zwięzłego podsumowania dla następnego etapu rozwoju. W historii konwersacji znajdziesz następujące informacje:
+1. Dokument wymagań produktu (PRD)
+2. Informacje o stacku technologicznym
+3. Plan API
+4. Historia rozmów zawierająca pytania i odpowiedzi
+5. Zalecenia dotyczące architektury UI
+
+Twoim zadaniem jest:
+1. Podsumować historię konwersacji, koncentrując się na wszystkich decyzjach związanych z planowaniem architektury UI.
+2. Dopasować zalecenia modelu do odpowiedzi udzielonych w historii konwersacji. Zidentyfikować, które zalecenia są istotne w oparciu o dyskusję.
+3. Przygotować szczegółowe podsumowanie rozmowy, które obejmuje:
+   a. Główne wymagania dotyczące architektury UI
+   b. Kluczowe widoki, ekrany i przepływy użytkownika
+   c. Strategię integracji z API i zarządzania stanem
+   d. Kwestie dotyczące responsywności, dostępności i bezpieczeństwa
+   e. Wszelkie nierozwiązane kwestie lub obszary wymagające dalszego wyjaśnienia
+4. Sformatować wyniki w następujący sposób:
+
+<conversation_summary>
+<decisions>
+[Wymień decyzje podjęte przez użytkownika, ponumerowane].
+</decisions>
+<matched_recommendations>
+[Lista najistotniejszych zaleceń dopasowanych do rozmowy, ponumerowanych]
+</matched_recommendations>
+<ui_architecture_planning_summary>
+[Podaj szczegółowe podsumowanie rozmowy, w tym elementy wymienione w kroku 3].
+</ui_architecture_planning_summary>
+<unresolved_issues>
+[Wymień wszelkie nierozwiązane kwestie lub obszary wymagające dalszych wyjaśnień, jeśli takie istnieją]
+</unresolved_issues>
+</conversation_summary>
+
+Końcowy wynik powinien zawierać tylko treść w formacie markdown. Upewnij się, że Twoje podsumowanie jest jasne, zwięzłe i zapewnia cenne informacje dla następnego etapu planowania architektury UI i integracji z API.
