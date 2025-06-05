@@ -1,77 +1,94 @@
 Jesteś doświadczonym menedżerem produktu, którego zadaniem jest stworzenie kompleksowego dokumentu wymagań produktu (PRD) w oparciu o poniższe opisy:
 
 <project_description>
+Nasza platforma do arbitrażu giełdowego to profesjonalne narzędzie zaprojektowane do monitorowania, analizy i szybkiej reakcji na okazje arbitrażowe na rynkach kryptowalut. Skupiając się na integracji danych z głównie scentralizowanych giełd (CEX), takich jak Binance, Kraken, OKX, ByBit, Zonda i inne, system oferuje:
 
-### Główny problem
-Współczesne zespoły produktowe, mimo znajomości metodologii testów A/B, często rezygnują z ich przeprowadzania lub ograniczają się do podstawowych eksperymentów z powodu braku standaryzowanego procesu tworzenia hipotez, niedoboru zasobów i kompetencji, trudności w analizie wyników, obaw przed negatywnym wpływem testów na kluczowe wskaźniki oraz problemów z wdrożeniem narzędzi w istniejącej infrastrukturze; w efekcie tracą szansę na systematyczne doskonalenie produktu w oparciu o dane.
+• Monitorowanie rynku w czasie rzeczywistym z wizualizacją spreadów, głębokości order booka oraz analizą płynności,
+• Natychmiastowe powiadomienia (alerty) o wykrytych okazjach arbitrażowych, umożliwiające szybką reakcję,
+• Pełną widoczność rynku oraz dostęp do dokładnych danych o płynności i głębokości order booków, co pozwala na precyzyjne podejmowanie decyzji handlowych,
+• Zintegrowane funkcjonalności skierowane zarówno do użytkowników indywidualnych (B2C), jak i firm arbitrażowych (B2B), bez tworzenia oddzielnych interfejsów,
+• Integrację z narzędziami do zaawansowanej analityki, takimi jak PostHog, umożliwiającą monitorowanie zachowań użytkowników, przeprowadzanie ankiet oraz zgłaszanie błędów,
+• Zagadnienia związane z bezpieczeństwem i stabilnością systemu, które choć istotne, nie są priorytetem na obecnym etapie, a zostaną rozwinięte w kolejnych iteracjach.
 
-### Najmniejszy zestaw funkcjonalności
-- Generowanie hipotez A/B za pomocą AI: Użytkownik wprowadza adres URL strony, a aplikacja analizuje ją i proponuje hipotezy testowe
-- Strukturyzacja hipotez: Każda hipoteza zawiera elementy: obserwacja, zmiana, oczekiwany rezultat
-- Edycja i zatwierdzanie hipotez: Użytkownik może przeglądać, edytować i akceptować lub odrzucać wygenerowane hipotezy
-- Eksport hipotez: Możliwość eksportu zatwierdzonych hipotez do pliku CSV lub integracja z popularnymi narzędziami do zarządzania zadaniami
-- Prosty system kont użytkowników: Rejestracja i logowanie, przechowywanie historii wygenerowanych hipotez
-
-### Co NIE wchodzi w zakres MVP
-- Zaawansowana analiza danych: Brak funkcji głębokiej analizy wyników testów A/B w czasie rzeczywistym
-- Personalizacja na podstawie segmentacji użytkowników: Brak możliwości dostosowywania hipotez do konkretnych segmentów użytkowników
-- Integracje z narzędziami analitycznymi: Brak bezpośrednich integracji z narzędziami typu Google Analytics, Hotjar itp
-- Aplikacje mobilne: Na początek dostępna tylko wersja webowa
-- Obsługa wielu języków: Interfejs i generowane hipotezy dostępne tylko w języku angielskim
-
-### Kryteria sukcesu
-- Akceptacja hipotez: Minimum 70% wygenerowanych hipotez jest akceptowanych przez użytkowników bez konieczności edycji
-- Zaangażowanie użytkowników: Minimum 40% zarejestrowanych użytkowników generuje hipotezy do conajmniej 10 stron do 30 dni po rejestracji
+Dzięki tym funkcjonalnościom platforma stanowi idealne rozwiązanie zarówno dla indywidualnych traderów, ceniących intuicyjną wizualizację i szybkie powiadomienia, jak i dla profesjonalnych firm oraz zespołów handlowych, poszukujących narzędzia umożliwiającego efektywną analizę rynkową i automatyzację procesów arbitrażowych. 
 
 </project_description>
 
 <project_details>
 
+
 <conversation_summary>
 <decisions>
-1. Uznano, że podstawowy problem produktu to trudność efektywnego generowania hipotez przy jednoczesnej wysokiej złożoności kosztowej (koszty narzędzi, implementacja, zaangażowanie deweloperów), przy czym główny problem pozostaje kluczowy.
-2. W MVP analiza strony ma bazować głównie na statycznych elementach (nagłówki, CTA, teksty, cenniki, style graficzne przycisków i obrazów) z opcjonalną, dodatkowo płatną integracją z Google Analytics 4 aby wzmocnić podstawy hipotez danymi.
-3. Do analizy strony wykorzystamy modele AI OpenAI.
-4. Użytkownik będzie aktywnie zaangażowany podczas onboardingu – po dodaniu strony system zada dodatkowe pytania w celu potwierdzenia założeń dotyczących celów biznesowych i grupy docelowej, a później proces generowania hipotez będzie automatyczny, z możliwością edycji opisu projektu.
-5. System kont ma obejmować rejestrację oAuth, odzyskiwanie hasła, weryfikację dwuetapową oraz system ról (właściciel, admin, edytor, komentujący, oglądający).
-6. Kryteria sukcesu będą mierzone przy użyciu Google Analytics 4 oraz Posthog, obejmując konwersję na rejestrację, zakupy, liczbę generowanych hipotez na użytkownika i retencję.
-7. W dokumentacji uwzględniamy wymagania bezpieczeństwa i compliance, szczególnie w kontekście rejestracji i weryfikacji użytkowników.
+1. MVP obsługuje dwa segmenty (kryptoentuzjaści & profesjonaliści) w jednym wspólnym interfejsie.
+2. Wersja 1 integruje giełdy: Binance, Kraken, OKX, ByBit, Zonda.
+3. Monitorowane aktywa: top 10 kryptowalut każdej z obsługiwanych giełd.
+4. Cykliczne pobieranie pełnych orderbooków co 30 s (stały interwał dla wszystkich giełd).
+5. Funkcjonalność MVP ogranicza się do wykrywania arbitrażu; brak auto-executingu.
+6. Kanały powiadomień: e-mail i Telegram; alert wysyłany, gdy spread ≥ 2 % (próg konfigurowany suwakiem).
+7. Alert zawiera: procent spreadu, głębokość książki, szacowany wolumen do realizacji, estymowany zysk, wskaźnik zaufania.
+8. Użytkownik może filtrować dane po giełdach, assetach, spreadach i cenach; pełny orderbook prezentowany domyślnie.
+9. Kluczowe metryki biznesowe: MAU, retencja, liczba wygenerowanych alertów, konwersja do płatnej subskrypcji.
+10. Model pricing: freemium (dostęp do danych + podgląd 3 alertów z 24 h) oraz subskrypcja płatna opłacana przez Metamask (krypto).
+11. Dostępność systemu docelowo 100 %; czas załadowania dashboardu < 3 s.
+12. Front-end: responsywna web-app, light-mode, język angielski.
+13. Dane historyczne orderbooków przechowywane przez 3 miesiące; eksport CSV dostępny dla użytkownika.
+14. Brak publicznego API w MVP; brak trybu dark / white-label.
+15. Panel administracyjny ograniczony do edycji domyślnych progów; formularz zgłoszeniowy dla użytkownika końcowego; monitoring błędów wyłącznie wewnętrzny.
+16. Kamienie milowe produktu definiowane liczbą obsługiwanych giełd i pełnym pokryciem ich assetów; zunifikowana kalkulacja arbitrażu w USDT wykonywana backendowo.
 </decisions>
-
 <matched_recommendations>
-1. Uzupełnienie definicji problemu o aspekt kosztowy narzędzi i zaangażowania developerów (wzmianka, ale nie dominująca).
-2. Dokładne określenie zakresu analizowanych danych wejściowych na stronie oraz opcjonalna integracja z GA4 jako funkcja dodatkowo płatna.
-3. Wykorzystanie modeli OpenAI jako technologii analizy strony.
-4. Stworzenie workflow, w którym użytkownik uczestniczy we wczesnym etapie onboardingu, potwierdza założenia, a następnie proces generowania hipotez staje się automatyczny.
-5. Zdefiniowanie mierzalnych kryteriów sukcesu zgodnie z przyjętymi metrykami oraz zastosowanie systemu kont z zaawansowanymi funkcjami bezpieczeństwa.
+1. Zastosowanie zunifikowanej kalkulacji USDT przy użyciu kursów live (Rek. 4).
+2. Udostępnienie pełnego filtrowania i watchlist użytkownika (Rek. 5).
+3. Implementacja bota Telegram z krótkimi akcjami inline (Rek. 3).
+4. Wprowadzenie trust-score alertu (Rek. 16).
+5. Freemium ograniczające alerty do 3 / 24 h i brak historii głębokości (Rek. 13).
+6. Kompresja oraz cache dla danych historycznych, np. Parquet (Rek. 15).
+7. Panel admin z rolą edycji progów i monitoringiem jakości danych (Rek. 17).
+8. KPI „dashboard load time” monitorowany w PostHog (< 3 s) (Rek. 20).
+9. Retry & cache polityka dla błędów API (Rek. 8).
+10. Mapowanie roadmapy na kolejne giełdy/asset-coverage (Rek. 9).
 </matched_recommendations>
-
 <prd_planning_summary>
-Główne wymagania funkcjonalne:
-• Analiza strony pod kątem statycznych elementów (nagłówki, CTA, teksty, cenniki, treści konwersyjne, elementy graficzne) przy użyciu modeli AI OpenAI.
-• Opcjonalna integracja z Google Analytics 4 jako funkcjonalność premium.
-• Możliwość samodzielnego dodawania hipotez.
-• System zarządzania projektami, w którym użytkownik odpowiada na pytania podczas onboardingu oraz ma możliwość edycji założeń.
-• System kont użytkowników (rejestracja oAuth, odzyskiwanie hasła, weryfikacja dwuetapowa, role).
-Kluczowe historie użytkownika i ścieżki korzystania:
-• Użytkownik dodaje stronę i odpowiada na serię pytań dotyczących celów biznesowych, grupy docelowej i założeń.
-• Po zatwierdzeniu założeń system automatycznie generuje hipotezy, które użytkownik może zaakceptować lub odrzucić.
-• Użytkownik ma możliwość edycji opisu projektu i założeń na dowolnym etapie wykorzystując wsparcie AI.
-Ważne kryteria sukcesu:
-• Wskaźniki konwersji (rejestracja, zakup).
-• Liczba generowanych hipotez na użytkownika.
-• Retencja użytkowników.
-• Monitorowane przy użyciu Google Analytics 4 oraz Poshog.
-Nierozwiązane kwestie lub obszary wymagające dalszych wyjaśnień:
-• Szczegółowy zakres danych potrzebnych do wstępnej analizy strony, mimo że zakres elementów strony został ogólnie określony.
-• Ostateczne wymagania dotyczące technicznych interfejsów integracji (szczególnie opcjonalnej integracji z GA4).
+Produkt: platforma webowa do arbitrażu na CEX-ach, dostarczająca dane rynkowe i alerty arbitrażowe w 30-sekundowych cyklach.
+1. Główne wymagania funkcjonalne
+* Integracja z 5 giełdami i top 100 coinów (pełny orderbook).
+* Backend pobiera orderbooky co 30 s, oblicza spready arbitrażowe w USDT, uwzględnia głębokość i wolumen.
+* Generowanie alertu, gdy spread ≥ 2 % i spełnia wolumen USD; wysyłka na e-mail i Telegram.
+* Front-end (light-mode, EN) pokazuje dashboard z:
+* tabelą okazji z trust-score, głębokością, volumenem, prognozowanym zyskiem
+* wykres z wizualizacją okazji arbitrażowych
+* pełnym orderbookiem w podglądzie szczegółowym
+* filtrami giełd, assetów, spreadów, cen
+* Konto freemium: dostęp do danych + 3 historyczne alerty/24 h; konto płatne (Metamask) odblokowuje alerty w czasie rzeczywistym.
+* Eksport danych historycznych (3 mies.) do CSV.
+* Panel admin do zmiany domyślnych progów i monitoringu jakości danych.
+1. Kluczowe historie użytkownika
+* Jako kryptoentuzjasta chcę szybkie powiadomienie Telegram, gdy spread ≥ 2 %, abym mógł ręcznie zareagować.
+* Jako profesjonalny trader chcę widzieć pełną głębokość orderbooków i estymowany wolumen, aby ocenić wykonalność transakcji.
+* Jako nowy użytkownik freemium chcę zobaczyć 3 najlepsze historyczne alerty, by zrozumieć wartość produktu i skłonić się do zakupu subskrypcji.
+* Jako admin chcę edytować domyślne progi spreadów, aby kalibrować liczbę alertów.
+1. Kryteria sukcesu i metryki
+* MAU oraz 30-dniowa retencja ≥ 30 %.
+* Konwersja freemium → płatne ≥ 10 % po 30 dniach.
+* Średni czas dostarczenia alertu (dane → Telegram/e-mail) ≤ 5 s od zakończenia cyklu 30 s.
+* Dashboard load time ≤ 3 s przy pełnym orderbooku (5 giełd × 100 coinów).
+* Uptime systemu 100 % w okresie obserwacji MVP.
+1. Nierozwiązane kwestie
+Patrz sekcja <unresolved_issues>.
 </prd_planning_summary>
-
 <unresolved_issues>
-• Konkretne specyfikacje dotyczące rodzajów danych wejściowych i sposobu ich przetwarzania podczas analizy strony mogą wymagać dalszego doprecyzowania.
-• Szczegóły dotyczące implementacji integracji z GA4 oraz ewentualnych warunków, na jakich funkcjonalność ta staje się płatna.
+1. Dokładna wartość wolumenowego buforu (USD) użytego przy estymacji zysku nie została ustalona.
+2. Szczegóły techniczne obsługi płatnej subskrypcji przez Metamask (odnowienia, waluty, regiony).
+3. Strategia GDPR dla przechowywania eventów PostHog i danych orderbook (> 3 miesiące) nie została określona.
+4. Brak polityki rate-limitów alertów może prowadzić do spamu; wymaga ponownej oceny.
+5. Nie ustalono, czy adaptacyjne interwały (websocket vs REST) mają być rozważone w kolejnych fazach, zważywszy na wymóg 30 s.
+6. Mechanizm kolorystycznego/trust-score w UI wymaga specyfikacji algorytmu i progów wizualnych.
+7. Zakres ról w panelu admin (poza edycją progów) oraz uprawnienia do danych historycznych pozostają otwarte.
 </unresolved_issues>
 </conversation_summary>
+
+
+
 
 </project_details>
 
