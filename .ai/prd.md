@@ -14,7 +14,7 @@ Użytkownicy otrzymują:
 
 ## 2. Problem użytkownika
 1. Kryptoentuzjaści tracą szanse arbitrażowe z powodu braku narzędzi monitorujących wiele giełd jednocześnie i dostarczających szybkie powiadomienia.
-2. Profesjonalni traderzy potrzebują dokładnych danych o głębokości i płynności, aby ocenić wykonalność transakcji; dostępne rozwiązania są kosztowne lub niekompletne.
+2. Profesjonalni traderzy potrzebują dokładnych danych o głębokości i płynności spreadów, aby ocenić wykonalność transakcji; 
 3. Rynek zmienia się szybko; brak jednego źródła prawdy prowadzi do ręcznego porównywania cen i spowolnienia reakcji.
 4. Istniejące narzędzia rzadko oferują model freemium pozwalający przetestować wartość produktu przed zakupem subskrypcji.
 
@@ -26,15 +26,14 @@ FR-04 Generowanie alertu, gdy spread ≥ konfigurowalny próg (domyślnie 2 %).
 FR-05 Wysyłka alertu na e-mail i Telegram w ≤ 5 s od obliczenia.
 FR-06 Dashboard front-end z tabelą okazji, wizualizacją oraz pełnym orderbookiem.
 FR-07 Filtry po giełdzie, aktywie, spreadzie, cenie; personalna watchlist.
-FR-08 Trust-score okazji wyliczany według algorytmu (TBD) i wizualizowany kolorystycznie.
-FR-09 Plan freemium: dostęp do danych + 3 historyczne alerty/24 h.
-FR-10 Plan płatny: nielimitowane alerty i dane w czasie rzeczywistym, płatność MetaMask.
+FR-08 Plan freemium: dostęp do danych + 3 historyczne alerty/24 h.
+FR-09 Plan płatny: nielimitowane alerty i dane w czasie rzeczywistym, płatność Stripe.
 FR-11 Eksport danych historycznych orderbooków (3 mies.) do pliku CSV.
 FR-12 Panel admin: zmiana domyślnych progów, monitoring jakości danych.
-FR-13 Logowanie i rejestracja użytkowników (e-mail + OAuth, opcjonalnie MetaMask).
+FR-13 Logowanie i rejestracja użytkowników (e-mail + OAuth, opcjonalnie Stripe).
 FR-14 Śledzenie zdarzeń użytkownika i KPI w PostHog.
 FR-15 Retry & cache dla błędów API giełd; dostępność backendu 100 %.
-FR-16 Kompatybilność mobilna (responsywność) i czas ładowania dashboardu ≤ 3 s.
+FR-16 Kompatybilność mobilna (responsywność) i szybki czas ładowania dashboardu.
 FR-17 Przechowywanie danych zgodnie z GDPR; kasowanie danych starszych niż 3 mies.
 
 ## 4. Granice produktu
@@ -43,7 +42,7 @@ FR-17 Przechowywanie danych zgodnie z GDPR; kasowanie danych starszych niż 3 mi
 3. Bezpieczeństwo i skalowanie poza podstawowym retry/cache rozwijane w późniejszych fazach.
 4. Dane historyczne przechowywane maks. 3 mies.; brak przeglądarki poza CSV.
 5. Dark-mode nieobjęty zakresem MVP.
-6. Płatności obsługiwane wyłącznie przez MetaMask (krypto), brak tradycyjnych kart.
+6. Płatności obsługiwane wyłącznie przez Stripe.
 7. Jedna rola admin z ograniczonym zakresem (edycja progów, podgląd metryk).
 
 ## 5. Historyjki użytkowników
@@ -53,12 +52,12 @@ FR-17 Przechowywanie danych zgodnie z GDPR; kasowanie danych starszych niż 3 mi
 | US-002 | Przegląd pełnego orderbooka | Jako profesjonalny trader chcę widzieć pełną głębokość orderbooków obu giełd, aby ocenić wykonalność transakcji. | 1. Kliknięcie w okazję otwiera modal/orderbook. 2. Dane są aktualne (<30 s). 3. Widoczny sumaryczny wolumen i poziomy cenowe. |
 | US-003 | Filtracja okazji | Jako użytkownik chcę filtrować tabelę po giełdzie, aktywie, spreadzie i cenie, aby skupić się na interesujących mnie rynkach. | 1. Filtry działają w czasie rzeczywistym. 2. Wyniki odpowiadają zastosowanym kryteriom. |
 | US-004 | Historia alertów freemium | Jako nowy użytkownik freemium chcę zobaczyć 3 najlepsze historyczne alerty z ostatnich 24 h, aby ocenić wartość produktu. | 1. Widoczne dokładnie 3 alerty. 2. Dostęp bez płatnej subskrypcji. |
-| US-005 | Uaktualnienie do planu płatnego | Jako użytkownik freemium chcę uaktualnić konto przez MetaMask, aby odblokować alerty w czasie rzeczywistym. | 1. Transakcja krypto potwierdzona w sieci. 2. Konto zmienia status na "Pro". 3. Alerty przestają być limitowane. |
+| US-005 | Uaktualnienie do planu płatnego | Jako użytkownik freemium chcę uaktualnić konto przez Stripe, aby odblokować alerty w czasie rzeczywistym. | 1. Transakcja krypto potwierdzona w sieci. 2. Konto zmienia status na "Pro". 3. Alerty przestają być limitowane. |
 | US-006 | Eksport CSV | Jako analityk chcę wyeksportować dane orderbooków z ostatnich 3 mies. do CSV, aby móc je analizować offline. | 1. Użytkownik wybiera zakres dat. 2. Plik generuje się w <30 s. 3. Dane są kompletne i poprawnie sformatowane. |
 | US-007 | Edycja progów admin | Jako administrator chcę zmienić domyślny próg spreadu, aby kontrolować liczbę wysyłanych alertów. | 1. Formularz umożliwia zmianę wartości i zapis. 2. Nowy próg stosowany w kolejnych cyklach. |
 | US-008 | Monitorowanie jakości danych | Jako administrator chcę widzieć wskaźnik błędów API i retrysy, aby reagować na problemy z integracjami giełd. | 1. Dashboard admin pokazuje liczbę błędów i sukces rate. 2. Dane odświeżane co 5 min. |
 | US-009 | Logowanie i rejestracja | Jako użytkownik chcę zarejestrować się i logować przez e-mail/OAuth, aby mieć bezpieczny dostęp do mojego konta i subskrypcji. | 1. Możliwa rejestracja i logowanie. 2. Hasła przechowywane zgodnie z wymogami bezpieczeństwa. 3. Sesja wygasa po 30 dniach bez aktywności. |
-| US-010 | Uwierzytelnienie MetaMask | Jako użytkownik Pro chcę połączyć MetaMask do płatności, aby odnowić subskrypcję bez podawania danych karty. | 1. Portfel podpisuje transakcję. 2. System rozpoznaje potwierdzenie i aktualizuje datę ważności. |
+| US-010 | Uwierzytelnienie Stripe | Jako użytkownik Pro chcę połączyć Stripe do płatności, aby odnowić subskrypcję bez podawania danych karty. | 1. Portfel podpisuje transakcję. 2. System rozpoznaje potwierdzenie i aktualizuje datę ważności. |
 | US-011 | Watchlist | Jako trader chcę dodać pary do własnej watchlisty, aby szybko je odnaleźć na dashboardzie. | 1. Dodanie/usunięcie pary aktualizuje listę natychmiast. 2. Watchlist przechowywana w profilu użytkownika. |
 | US-012 | Ograniczenie spamu alertów | Jako użytkownik chcę, aby system nie wysyłał więcej niż 1 alert/min na tę samą parę, aby uniknąć spamu. | 1. Rate-limit działa zgodnie z ustawieniem. 2. W logach widoczna informacja o wstrzymanych alertach. |
 | US-013 | Bezpieczne logowanie administratora | Jako administrator chcę uwierzytelniania dwuskładnikowego (MFA), aby chronić panel admin przed nieautoryzowanym dostępem. | 1. Po włączeniu MFA logowanie wymaga kodu TOTP. 2. Niepoprawny kod blokuje dostęp po 3 próbach. |
