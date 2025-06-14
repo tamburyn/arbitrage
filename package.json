@@ -1,0 +1,47 @@
+{
+  "name": "crypto-arbitrage-dashboard",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Crypto Arbitrage Dashboard - Monitor cryptocurrency arbitrage opportunities across multiple exchanges",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@astrojs/react": "^3.6.2",
+    "@astrojs/tailwind": "^5.1.1",
+    "@supabase/supabase-js": "^2.45.4",
+    "astro": "^4.15.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.14"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitest/coverage-v8": "^2.1.3",
+    "@vitest/ui": "^2.1.3",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "crypto",
+    "arbitrage",
+    "dashboard",
+    "astro",
+    "supabase",
+    "trading"
+  ],
+  "author": "Crypto Arbitrage Team",
+  "license": "MIT"
+}
