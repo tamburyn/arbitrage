@@ -3,7 +3,7 @@ Twoim zadaniem jest zaimplementowanie widoku frontendu w oparciu o podany plan i
 Najpierw przejrzyj plan implementacji:
 
 <implementation_plan>
-@dashboard-implementation-plan.md
+@ui-dashboard-plan.md
 </implementation_plan>
 
 Teraz przejrzyj zasady implementacji:
@@ -26,7 +26,8 @@ Realizuj maksymalnie 3 kroki planu implementacji, podsumuj krótko co zrobiłeś
 Nie zaczynaj pracy od poczatku kroków implementacji, weź pod uwagę obecny status:
 
 <implementation_status>
-@dashboard-implementatnion-status.md</implementation_status>
+@ui-dashboard-status.md<
+/implementation_status>
 
 Dokładnie przeanalizuj plan wdrożenia, zasady i jego obecny status (zacznij od "Następne kroki"). Zwróć szczególną uwagę na strukturę komponentów, wymagania dotyczące integracji API i interakcje użytkownika opisane w planie.
 

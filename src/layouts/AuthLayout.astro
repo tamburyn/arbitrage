@@ -1,0 +1,78 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+}
+
+const { title = "Crypto Arbitrage Dashboard - Authentication" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="bg-background">
+    <div class="min-h-screen flex flex-col lg:flex-row">
+      <!-- Mobile/Main Layout - Centered form with logo -->
+      <div class="flex-1 flex items-center justify-center p-6 lg:p-12">
+        <div class="w-full max-w-sm space-y-6">
+          <!-- Branding - Always visible -->
+          <div class="flex items-center justify-center gap-3 mb-8">
+            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v16a2 2 0 0 0 2 2h16"/>
+                <path d="M7 11h8"/>
+                <path d="M7 16h12"/>
+                <path d="M7 6h3"/>
+              </svg>
+            </div>
+            <h1 class="text-xl font-bold">CryptoHacks</h1>
+          </div>
+          
+          <slot />
+        </div>
+      </div>
+      
+      <!-- Desktop Right side - Branding/Logo centered -->
+      <div class="hidden lg:flex lg:w-1/2 bg-black text-white flex-col items-center justify-center p-12">
+        <div class="text-center space-y-6">
+          <div class="flex items-center justify-center gap-4 mb-8">
+            <div class="flex h-16 w-16 items-center justify-center rounded-xl bg-white text-black">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v16a2 2 0 0 0 2 2h16"/>
+                <path d="M7 11h8"/>
+                <path d="M7 16h12"/>
+                <path d="M7 6h3"/>
+              </svg>
+            </div>
+            <h1 class="text-4xl font-bold">CryptoHacks</h1>
+          </div>
+          
+          <div class="space-y-4 max-w-lg">
+            <h2 class="text-3xl font-bold leading-tight">
+              Discover profitable arbitrage opportunities across crypto exchanges
+            </h2>
+            <p class="text-gray-300 text-lg">
+              Real-time monitoring, advanced analytics, and automated alerts for cryptocurrency arbitrage trading.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

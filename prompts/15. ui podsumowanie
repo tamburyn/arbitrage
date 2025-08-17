@@ -1,29 +1,3 @@
-1. Zdefiniować osobny ekran logowania/rejestracji z uwzględnieniem opcji oAuth, odzyskiwania hasła oraz walidacji w czasie rzeczywistym.
-
-2. Zaprojektować dashboard z wyraźną listą projektów/eksperymentów, umożliwiający filtrowanie, sortowanie i wyszukiwanie, co pozwoli użytkownikowi szybko odnaleźć interesujące go informacje.
-
-3. Stworzyć wieloetapowy proces onboardingowy dla dodawania nowego projektu, obejmujący: wklejenie URL, analizę w tle przez AI, interaktywną sesję zadawania pytań oraz finalne zapisanie projektu.
-
-4. Implementować mechanizmy informujące użytkownika o statusie analizy URL, takie jak loading spinner, pasek postępu lub powiadomienia, a w przypadku braku wyników odpowiednio obsłużyć stan pusty lub błąd.
-
-5. Zautomatyzować przekierowanie użytkownika – po zakończeniu analizy projekt powinien być zapisany, a użytkownik przeniesiony do głównego widoku listy projektów, umożliwiając dalsze działania.
-
-6. Wykorzystać sprawdzone komponenty z biblioteki Shadcn/ui wraz z Tailwind CSS, aby zapewnić spójny, responsywny i przyjazny design interfejsu użytkownika.
-
-7. Zintegrować mechanizmy autoryzacji oraz zarządzania tokenami JWT, dbając o ich bezpieczne przechowywanie oraz wyświetlanie odpowiednich komunikatów błędów w przypadku nieprawidłowości.
-
-8. Wdrożyć strategię zarządzania stanem za pomocą narzędzi takich jak React Query lub SWR, aby zapewnić wydajne pobieranie, synchronizację i buforowanie danych z API.
-
-9. Zaprojektować intuicyjną i prostą w nawigacji strukturę aplikacji, z podziałem na główne sekcje (projekty, hipotezy, ustawienia, konta) oraz z możliwością łatwego przechodzenia między widokami.
-
-
-10. Rozważyć implementację dynamicznych modali oraz interaktywnych elementów potwierdzających operacje (np. edycja hipotez) w celu poprawy doświadczenia użytkownika (UX).
-
-11. Zaplanować wyraźny widoczny panel lub sekcję do zarządzania rolami i członkostwem w projekcie, aby użytkownicy mieli przejrzysty podgląd swoich uprawnień i możliwych działań.
-
-12. Upewnić się, że projekt UI spełnia standardy dostępności WCAG oraz jest zoptymalizowany pod kątem responsywności, dostosowując interfejs do różnych urządzeń (mobilne, tablety, desktopy).
-
-
 
 ---
 

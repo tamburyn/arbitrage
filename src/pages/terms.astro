@@ -1,0 +1,110 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Disable prerendering for this page to enable SSR
+export const prerender = false;
+---
+
+<Layout title="Terms of Service - CryptoHacks">
+  <div class="min-h-screen bg-background">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+      <div class="prose prose-lg max-w-none">
+        <h1 class="text-3xl font-bold mb-8">Terms of Service</h1>
+        
+        <p class="text-muted-foreground mb-8">Last updated: {new Date().toLocaleDateString()}</p>
+        
+        <div class="space-y-8">
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">1. Agreement to Terms</h2>
+            <p>
+              By accessing and using CryptoHacks ("the Service"), you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">2. Service Description</h2>
+            <p>
+              CryptoHacks provides cryptocurrency arbitrage monitoring and analytics tools. The Service displays real-time price differences across various cryptocurrency exchanges for informational purposes only.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">3. No Financial Advice</h2>
+            <p>
+              The information provided through this Service is for informational purposes only and should not be construed as financial, investment, or trading advice. You should consult with qualified professionals before making any financial decisions.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">4. User Responsibilities</h2>
+            <ul class="list-disc pl-6 space-y-2">
+              <li>You are responsible for maintaining the confidentiality of your account credentials</li>
+              <li>You agree not to use the Service for any unlawful or prohibited activities</li>
+              <li>You acknowledge that trading cryptocurrencies involves significant risk</li>
+              <li>You will not attempt to interfere with the proper functioning of the Service</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">5. Data Accuracy</h2>
+            <p>
+              While we strive to provide accurate and up-to-date information, we cannot guarantee the accuracy, completeness, or timeliness of the data displayed. Market conditions change rapidly, and delays or errors may occur.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">6. Limitation of Liability</h2>
+            <p>
+              In no event shall CryptoHacks or its operators be liable for any direct, indirect, incidental, special, or consequential damages arising from your use of the Service, including but not limited to trading losses or missed opportunities.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">7. Service Availability</h2>
+            <p>
+              We do not guarantee that the Service will be available at all times. The Service may be subject to maintenance, updates, or technical issues that could result in temporary unavailability.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">8. Modifications to Terms</h2>
+            <p>
+              We reserve the right to modify these Terms of Service at any time. Changes will be effective immediately upon posting. Your continued use of the Service constitutes acceptance of the modified terms.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">9. Termination</h2>
+            <p>
+              We may terminate or suspend your access to the Service at any time, without prior notice, for conduct that we believe violates these Terms of Service or is harmful to other users or the Service.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">10. Governing Law</h2>
+            <p>
+              These Terms of Service shall be governed by and construed in accordance with the laws of Poland. Any disputes arising under these terms shall be subject to the jurisdiction of Polish courts.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">11. Contact Information</h2>
+            <div class="bg-muted p-4 rounded-lg">
+              <p><strong>Service Operator:</strong></p>
+              <p>Adrian Lewtak</p>
+              <p>Ludna 3/9</p>
+              <p>00-405 Warsaw, Poland</p>
+              <p>Tax ID: 521 380 47 76</p>
+            </div>
+          </section>
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-border">
+          <p class="text-sm text-muted-foreground">
+            By using CryptoHacks, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { SimpleSidebar } from "../components/ui/SimpleSidebar";
+import { FavouritesForm } from "../components/auth/FavouritesForm";
+
+// Disable prerendering for this page to enable SSR
+export const prerender = false;
+
+// This page requires authentication - middleware will handle redirect if not authenticated
+// The user will be available if they passed middleware auth check
+const { user } = Astro.locals;
+
+// Prepare user data for client-side components
+const userData = user ? { id: user.id, email: user.email } : null;
+---
+
+<Layout title="Set Preferences - Crypto Arbitrage Dashboard">
+  <SimpleSidebar client:idle user={userData}>
+    <div class="h-full bg-background overflow-auto">
+      <div class="lg:hidden mb-16"></div> <!-- Spacer for mobile hamburger -->
+      
+      <!-- Preferences Content -->
+      <div class="p-6 space-y-6">
+        <div class="space-y-2">
+          <h1 class="text-3xl font-bold tracking-tight">Trading Preferences</h1>
+          <p class="text-muted-foreground text-lg"> Choose which exchanges and assets you want to add to favourites.
+          </p>
+        </div>
+        
+        <div class="max-w-7xl">
+          <FavouritesForm client:load />
+        </div>
+      </div>
+    </div>
+  </SimpleSidebar>
+</Layout>

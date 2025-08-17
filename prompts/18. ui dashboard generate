@@ -3,7 +3,7 @@ Twoim zadaniem jest zaimplementowanie widoku frontendu w oparciu o podany plan i
 Najpierw przejrzyj plan implementacji:
 
 <implementation_plan>
-@dashboard-implementation-plan.md
+@ui-dashboard-plan.md
 </implementation_plan>
 
 Teraz przejrzyj zasady implementacji:

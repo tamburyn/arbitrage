@@ -1,0 +1,24 @@
+---
+import AuthLayout from "../layouts/AuthLayout.astro";
+import { RegistrationForm } from "../components/auth/RegistrationForm";
+
+// Disable prerendering for this page to enable SSR
+export const prerender = false;
+
+// Check if user is already authenticated
+const { user } = Astro.locals;
+
+if (user) {
+  return Astro.redirect("/");
+}
+---
+
+<AuthLayout title="Sign Up - Crypto Arbitrage Dashboard">
+  <div class="space-y-6">
+    <!-- Mobile subtitle under logo -->
+    <div class="lg:hidden text-center text-muted-foreground text-sm -mt-4 mb-6">
+      Discover profitable arbitrage opportunities across crypto exchanges
+    </div>
+    <RegistrationForm client:load />
+  </div>
+</AuthLayout>

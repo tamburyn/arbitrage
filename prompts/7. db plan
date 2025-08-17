@@ -7,7 +7,56 @@ Jesteś architektem baz danych, którego zadaniem jest stworzenie schematu bazy 
 Jest to dokument wymagań produktu, który określa cechy, funkcjonalności i wymagania projektu.
 
 2. <session_notes>
-{{session-notes}}
+<conversation_summary>
+<decisions>
+1. Ustalić kluczowe encje i ich atrybuty według następującego zestawu:
+   - Users: id (UUID), email, hashed_password, imię i nazwisko, data rejestracji, rola (np. admin/użytkownik), opcjonalne ustawienia powiadomień.
+   - Exchanges: id, nazwa, API_endpoint, status integracji, dodatkowe metadane.
+   - Assets: id, symbol, pełna_nazwa, opis.
+   - Orderbooks: id, exchange_id (FK), asset_id (FK), snapshot (JSONB), timestamp, ew. metryki (wolumen, spread).
+   - Alerts: id, user_id (FK), exchange_id (FK), asset_id (FK), timestamp, spread, status wysyłki, dodatkowe informacje.
+   - Payments/Subscriptions: id, user_id (FK), status, data rozpoczęcia, data zakończenia, metoda płatności.
+   - Watchlist: id, user_id (FK), asset_id (FK), data dodania.
+   - Settings: id, user_id (FK), konfiguracja powiadomień, preferencje alertów.
+2. Ustalić relacje między encjami jako jeden do wielu lub wiele do wielu (dla Watchlist) zgodnie z opisem.
+3. Przechowywać snapshoty orderbook jako pole JSONB, jako najprostsze i najbardziej elastyczne rozwiązanie.
+4. Wdrożyć dobre praktyki ograniczeń (NOT NULL, UNIQUE, CHECK), m.in. unikalny email w Users i wartości spread > 0.
+5. Utworzyć indeksy na krytycznych kolumnach (timestamp, exchange_id, user_id, asset) dla optymalizacji zapytań.
+6. Rozważyć partycjonowanie tabeli Orderbooks według przedziałów czasowych (preferencyjnie miesięcznie, z możliwością zmiany na dzienne, jeśli zajdzie potrzeba).
+7. Wdrożyć RLS (Row Level Security) na tabelach z danymi wrażliwymi (Users, Alerts, Payments/Subscriptions) według ustalonych polityk.
+8. Zaprojektować mechanizmy rate-limiting (np. 1 alert na minutę dla tej samej pary) wspomagające logikę aplikacyjną i uzupełniające zabezpieczenia bazy danych.
+9. Zaimplementować mechanizmy audytu i logowania operacji poprzez dedykowaną tabelę logów, zgodnie z wymaganiami RODO/GDPR.
+10. Pozostawić możliwość przyszłej rozbudowy schematu o dodatkowe ustawienia użytkownika.
+</decisions>
+
+<matched_recommendations>
+1. Definicja tabel z wykorzystaniem UUID jako kluczy głównych.
+2. Ustanowienie relacji jeden-do-wielu oraz wiele-do-wielu (dla Watchlist) zgodnie z wymaganiami.
+3. Użycie JSONB do przechowywania dynamicznych danych snapshotu orderbook.
+4. Stosowanie restrykcyjnych ograniczeń (NOT NULL, UNIQUE, CHECK) w celu zapewnienia integralności danych.
+5. Indeksowanie kolumn krytycznych dla wydajnego wyszukiwania i łączenia danych.
+6. Partycjonowanie danych historycznych Orderbooks w celu poprawy skalowalności.
+7. Wdrożenie Row Level Security (RLS) w celu ochrony wrażliwych danych.
+8. Mechanizmy rate-limiting wspomagające logikę aplikacyjną i wspierające zabezpieczenia bazy danych.
+9. Audyt i logowanie operacji przy użyciu dedykowanej tabeli logów.
+10. Architektura umożliwiająca elastyczną rozbudowę schematu w przyszłości.
+</matched_recommendations>
+
+<database_planning_summary>
+Główne wymagania dotyczą schematu bazy danych dla MVP, który ma obsługiwać monitorowanie rynków kryptowalut oraz zarządzanie alertami, subskrypcjami i danymi użytkowników. Kluczowe encje obejmują Users, Exchanges, Assets, Orderbooks, Alerts, Payments/Subscriptions, Watchlist oraz Settings. Ustalono, że:
+- Dane użytkowników muszą być bezpiecznie przechowywane z odpowiednimi ograniczeniami (np. unikalny email).
+- Snapshoty orderbooków będą przechowywane jako JSONB, co umożliwia prostą i elastyczną obsługę dynamicznych danych.
+- Relacje między encjami będą realizowane poprzez klucze obce, przy czym Watchlist modelowana jest jako relacja wiele-do-wielu.
+- Wydajność zapytań będzie wspierana przez odpowiednie indeksy oraz możliwość partycjonowania tabeli Orderbooks (preferencyjnie miesięcznie).
+- RLS zostanie wdrożony w tabelach z danymi wrażliwymi (Users, Alerts, Payments/Subscriptions) w celu ochrony dostępu.
+- Mechanizmy rate-limiting oraz audytu operacji są dodatkowym zabezpieczeniem, uzupełniającym logikę aplikacyjną oraz wspierającym zgodność z RODO/GDPR.
+</database_planning_summary>
+
+<unresolved_issues>
+1. Dokładna częstotliwość partycjonowania tabeli Orderbooks (miesięczne vs. dzienne) może wymagać dalszej analizy w oparciu o rzeczywisty wolumen danych.
+</unresolved_issues>
+</conversation_summary>
+
 </session_notes>
 
 Są to notatki z sesji planowania schematu bazy danych. Mogą one zawierać ważne decyzje, rozważania i konkretne wymagania omówione podczas spotkania.

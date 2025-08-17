@@ -1,0 +1,74 @@
+# Specyfikacja modułu autoryzacji, rejestracji i odzyskiwania hasła - Crypto Arbitrage Dashboard
+
+## 1. ARCHITEKTURA INTERFEJSU UŻYTKOWNIKA
+
+- **Struktura stron i layoutów**: 
+  - Utworzenie dedykowanych stron autoryzacji (logowanie, rejestracja, odzyskiwanie hasła) w katalogu `/src/pages` lub podobnym, korzystających z nowego layoutu `AuthLayout.astro`. Layout ten będzie uproszczony, bez elementów dostępnych dla użytkowników zalogowanych (np. menu nawigacyjne, sidebar), a jednocześnie zapewni spójność stylistyczną z głównym layoutem (`Layout.astro`).
+  - Strony nie wymagające autoryzacji będą renderowane przy użyciu istniejącego layoutu.
+
+- **Komponenty React**:
+  - Utworzenie interaktywnych komponentów: `LoginForm`, `RegistrationForm`, `PasswordResetForm` oraz ewentualnego komponentu do obsługi ulubionych giełd i assetów (np. `FavouritesList`).
+  - Komponenty te będą wykorzystywały React wraz z TypeScript, wspierając mechanizmy walidacji (np. biblioteki walidacyjne lub niestandardowe mechanizmy) oraz dynamiczne wyświetlanie komunikatów błędów.
+  - Integracja komponentów z dedykowanym `AuthContext` dla zarządzania stanem autoryzacji.
+
+- **Integracja Astro i React**:
+  - Strony Astro będą odpowiedzialne za layout oraz przekazywanie wstępnych danych (np. status sesji) do osadzonych komponentów React.
+  - Komponenty React będą odpowiadały za interakcję użytkownika (formularze, przyciski, komunikaty) oraz walidację danych przed wysłaniem do backendu.
+
+- **Walidacja i obsługa błędów**:
+  - Po stronie klienta walidacja formularzy (np. format email, siła hasła) oraz interaktywne komunikaty o błędach.
+  - Po stronie serwera wykorzystanie wspólnego modułu `validation.service.ts` oraz `error-handler.ts` dla spójnego przetwarzania błędów oraz zapewnienia bezpieczeństwa danych.
+  - Scenariusze: poprawna rejestracja, błąd walidacji, nieudane logowanie z komunikatem o błędach, poprawne resetowanie hasła z potwierdzeniem wysłania linku resetującego.
+
+## 2. LOGIKA BACKENDOWA
+
+- **Struktura endpointów API**:
+  - Utworzenie nowych endpointów w katalogu `/src/pages/api/auth`:
+    - `/api/auth/register` – Endpoint rejestracji użytkownika, odbierający dane z `RegistrationForm` i przekazujący je do Supabase Auth.
+    - `/api/auth/login` – Endpoint logowania, który po weryfikacji danych wywołuje funkcję logowania w Supabase oraz zarządza sesją (np. ustawianie cookies z tokenem).
+    - `/api/auth/logout` – Endpoint wylogowania, usuwający token sesji.
+    - `/api/auth/reset-password` – Endpoint obsługujący inicjację procesu resetowania hasła, wysyłający link resetujący do użytkownika.
+  - Opcjonalnie: Endpointy w `/api/favourites` do zarządzania listami ulubionych giełd/assetów, modyfikujące pola w profilu użytkownika.
+
+- **Modele danych**:
+  - Rozszerzenie modelu użytkownika (np. tabela `UserProfile` w Supabase) o dodatkowe kolumny: `favourite_exchanges` oraz `favourite_assets`.
+  - Zachowanie zgodności z istniejącymi modelami danych, szczególnie z modułem supabase klienta zdefiniowanym w `/src/db/supabase.client.ts`.
+
+- **Walidacja wejściowa**:
+  - Wykorzystanie `validation.service.ts` do sprawdzania poprawności danych (np. wymagane pola, format email, minimalna długość hasła).
+  - Weryfikacja danych na poziomie API oraz formularzy przed wysłaniem zapytań.
+
+- **Obsługa wyjątków**:
+  - Centralny mechanizm obsługi błędów za pomocą `error-handler.ts` dla jednolitego formatu odpowiedzi w przypadku błędów.
+  - Logowanie błędów za pomocą `audit.service.ts` lub innego modułu monitorującego.
+
+- **Renderowanie stron SSR**:
+  - Aktualizacja sposobu renderowania stron w trybie server-side (SSR) z wykorzystaniem ustawień w `astro.config.mjs`.
+  - Przekazywanie danych autoryzacyjnych (np. status sesji) poprzez cookies, zapewniające spójność między renderowaniem Astro i komponentami React.
+
+## 3. SYSTEM AUTENTYKACJI
+
+- **Integracja Supabase Auth**:
+  - Wykorzystanie mechanizmów Supabase Auth do obsługi rejestracji, logowania, wylogowywania oraz resetowania hasła:
+    - Rejestracja: Wywołanie `supabase.auth.signUp()` w API oraz klientach frontendowych.
+    - Logowanie: Użycie `supabase.auth.signIn()` lub `signInWithPassword()` do uwierzytelnienia użytkownika.
+    - Resetowanie hasła: Inicjacja procesu resetowania poprzez `supabase.auth.resetPassword()`, wysyłającego link resetujący.
+    - Wylogowanie: Implementacja `supabase.auth.signOut()` oraz obsługa czyszczenia danych sesji (cookies, kontekst autoryzacyjny w React).
+  - **Obsługa sesji przy SSR**:
+    - Synchronizacja stanu autoryzacji między stronami Astro a komponentami React przez `AuthContext`.
+    - Przekazywanie tokenów sesyjnych za pomocą cookies, zgodnie z zasadami bezpieczeństwa (HTTPS, HttpOnly, Secure).
+
+- **Bezpieczeństwo i dodatkowe mechanizmy**:
+  - Wdrożenie rate limiting dla endpointów logowania i rejestracji (np. poprzez `rate-limiter.service.ts`).
+  - Zapewnienie bezpiecznej transmisji danych (HTTPS) oraz monitorowanie nieudanych prób logowania.
+  - Możliwość wdrożenia dodatkowych mechanizmów (MFA) w przyszłych wersjach.
+
+## Podsumowanie
+
+Proponowana architektura modułu autoryzacji, rejestracji i odzyskiwania hasła w ramach Crypto Arbitrage Dashboard opiera się na przyjętym tech stacku: Astro, React, TypeScript, Tailwind, Supabase oraz Shadcn/ui. Rozwiązanie to obejmuje:
+- Oddzielenie stron autoryzacyjnych oraz implementację dedykowanych layoutów.
+- Utworzenie interaktywnych komponentów React do obsługi formularzy autoryzacyjnych i zarządzania ulubionymi giełdami/assetami.
+- Rozbudowę backendu poprzez nowe endpointy API z solidną walidacją danych i obsługą wyjątków.
+- Integrację Supabase Auth, umożliwiającą bezpieczną rejestrację, logowanie, wylogowywanie i resetowanie hasła, z pełnym wsparciem dla SSR.
+
+Implementacja tej specyfikacji pozwoli na rozszerzenie funkcjonalności aplikacji, nie naruszając istniejącej architektury, i zapewni skalowalne oraz bezpieczne rozwiązanie zgodne z wymaganiami PRD i założeniami technologicznymi.

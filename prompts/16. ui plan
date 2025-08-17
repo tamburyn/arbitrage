@@ -16,33 +16,43 @@ Session Notes:
 
 <conversation_summary>
 <decisions>
-1. Zaprojektować kluczowe widoki: ekran logowania, rejestracji, widok projektu, dashboard oraz widok dodawania strony z audytem, zgodnie z wymaganiami PRD i strukturą API.  
-2. Wdrożyć hybrydowe podejście, używając Astro do generowania statycznych stron oraz React z Shadcn/ui do dynamicznych i interaktywnych komponentów, z rozwijalnym menu bocznym umieszczonym po lewej stronie.  
-3. Zastosować React Query do zarządzania stanem w celu skutecznej synchronizacji danych między interfejsem a backendem oraz obsługi stanów ładowania, błędów i aktualizacji.  
-4. Opracować spójny zestaw komponentów feedbacku (powiadomienia, alerty, modale) oparty na Shadcn/ui, aby informować użytkownika o wynikach operacji oraz ewentualnych błędach.  
-5. Zaprojektować interfejs responsywnie przy użyciu Tailwind CSS z precyzyjnie zdefiniowanymi punktami przerwania dla optymalnego działania na różnych urządzeniach.  
-6. Umieścić funkcjonalności UI związane z zarządzaniem zespołem w sekcji ustawień, umożliwiając efektywne zarządzanie rolami użytkowników.  
-7. Zachować minimalistyczny design, wykorzystując potencjał Tailwind CSS wraz z komponentami Shadcn/ui, aby utrzymać spójność wizualną.  
-8. Wdrożyć najlepsze standardy bezpieczeństwa interfejsu (HTTPS, bezpieczne przechowywanie tokenów, ochrona przed XSS/CSRF, restrykcyjne polityki CORS oraz wytyczne OWASP).
+1. Kluczowe widoki MVP obejmują dashboard, ekran logowania/rejestracji oraz ustawienia użytkownika, z możliwością dodania kolejnych ekranów w przyszłości.
+2. Przyjęty przepływ użytkownika zakłada: logowanie → dashboard, rejestracja → logowanie → dashboard oraz dashboard → ustawienia użytkownika → dashboard.
+3. Nawigacja ma być oparta na bocznym menu, dostępnym i spójnym na wszystkich urządzeniach.
+4. Interfejs ma wykorzystywać komponenty takie jak tabele, wykresy, filtry i modale — na razie w uproszczonej wersji, z możliwością rozbudowy o zaawansowane funkcjonalności (np. przybliżanie, zmiana interwałów) w przyszłości.
+5. Projekt UI musi cechować się pełną responsywnością, zgodnie z dobrymi praktykami.
+6. Do projektowania UI zostanie użyty standard shadcn/ui, bez dodatkowych wymagań personalizacyjnych.
+7. Autoryzacja użytkowników będzie realizowana przy użyciu Supabase, wykorzystując JWT.
+8. Strategia zarządzania stanem aplikacji zostanie uproszczona (proste, hybrydowe podejście).
+9. Obsługa błędów będzie hybrydowa, z wyświetlaniem komunikatów oraz umożliwieniem ponownego ładowania danych.
+10. Optymalizacja komunikacji z API zakłada zastosowanie najlepszego rozwiązania, tj. SSR z Astro, lazy loading oraz cache’owanie danych.
 </decisions>
 <matched_recommendations>
-1. Hybrydowe podejście oparte na Astro i React z Shadcn/ui.  
-2. Zarządzanie stanem przy użyciu React Query.  
-3. Implementacja komponentów feedbacku (powiadomienia, alerty, modale) przy użyciu Shadcn/ui.  
-4. Responsywny design z wykorzystaniem Tailwind CSS.  
-5. Integracja UI z backendowym API zgodnie z wymaganiami PRD.  
-6. Wdrożenie najlepszych praktyk bezpieczeństwa interfejsu zgodnie z wytycznymi OWASP.
+1. Skoncentrować implementację na kluczowych widokach (dashboard, logowanie/rejestracja, ustawienia) z możliwością rozbudowy w przyszłości.
+2. Zweryfikować i utrzymać przyjęty przepływ użytkownika przy przechodzeniu między widokami.
+3. Wdrożyć spójną boczną nawigację na wszystkich urządzeniach.
+4. Wykorzystać interaktywne komponenty (tabele, wykresy, filtry, modale) zgodnie z shadcn/ui, z możliwością rozbudowy o zaawansowane funkcjonalności.
+5. Zapewnić pełną responsywność i adaptację interfejsu według dobrych praktyk.
+6. Zintegrować system autoryzacji Supabase z JWT w celu zabezpieczenia API oraz tras w UI.
+7. Zastosować prostą, hybrydową strategię zarządzania stanem (np. React Context + SWR).
+8. Implementować mechanizm obsługi błędów z jasnymi komunikatami i funkcjonalnością ponownego ładowania danych.
+9. Zastosować optymalizacje specyficzne dla aplikacji (SSR w Astro, lazy loading, caching) w celu efektywnej komunikacji z API.
 </matched_recommendations>
 <ui_architecture_planning_summary>
-Projekt architektury UI dla MVP obejmuje stworzenie kluczowych ekranów: logowania, rejestracji, widoku projektu, dashboardu oraz widoku dodawania strony z audytem – wszystko zgodnie z wymaganiami PRD i strukturą API. Interfejs będzie oparty na hybrydowym podejściu, gdzie Astro generuje statyczne strony, a React z Shadcn/ui odpowiada za dynamiczną warstwę, umożliwiając płynną nawigację dzięki rozwijalnemu menu bocznemu po lewej stronie.  
-Stan aplikacji będzie zarządzany przez React Query, co zapewni efektywną synchronizację z backendem oraz obsługę stanów ładowania, błędów i aktualizacji danych. Interfejs zostanie zaprojektowany responsywnie przy użyciu Tailwind CSS z precyzyjnie określonymi punktami przerwania, aby zapewnić optymalne działanie na wszystkich urządzeniach. Design jest minimalistyczny i spójny, bazując na komponentach Shadcn/ui.  
-Dodatkowo, elementy zarządzania zespołem (w tym zarządzanie rolami użytkowników) zostaną umieszczone w dedykowanej sekcji ustawień. W aspekcie bezpieczeństwa wdrożone zostaną standardy, takie jak stosowanie HTTPS, bezpieczne przechowywanie tokenów (np. HttpOnly cookies), ochrona przed atakami XSS/CSRF poprzez sanitizację danych, restrykcyjne polityki CORS oraz zgodność z wytycznymi OWASP.
+1. Główne wymagania dotyczące architektury UI obejmują stworzenie MVP z widokami dashboardu, logowania/rejestracji i ustawień użytkownika, przy czym dalszy rozwój ekosystemu widoków jest planowany.
+2. Kluczowe widoki i przepływy użytkownika zostały ustalone jako: logowanie → dashboard, rejestracja → logowanie → dashboard oraz nawigacja pomiędzy dashboardem a ustawieniami, co stworzy intuicyjną mapę podróży użytkownika.
+3. W integracji z API zastosowane zostaną rozwiązania zapewniające synchronizację stanu (poprzez proste, hybrydowe podejście, np. React Context i SWR) oraz częste odświeżanie danych (co 30 sekund).
+4. Kwestiami projektowymi są pełna responsywność interfejsu, wykorzystanie sprawdzonych standardów shadcn/ui, a także optymalizacje (SSR, lazy loading, caching) w celu zapewnienia wysokiej wydajności.
+5. Bezpieczeństwo i autoryzacja będą obsługiwane przez Supabase przy użyciu JWT, co zapewni ochronę danych użytkownika zarówno na poziomie API, jak i interfejsu.
+6. Interaktywne komponenty, takie jak tabele, wykresy, filtry i modale, będą początkowo proste, ale z możliwością dalszej rozbudowy o bardziej zaawansowane funkcje interakcyjne.
+7. System obsługi błędów zapewni wyświetlanie komunikatów oraz mechanizmy ponownego ładowania danych, co poprawi doświadczenie użytkownika podczas awarii.
 </ui_architecture_planning_summary>
 <unresolved_issues>
-Obecnie nie zidentyfikowano żadnych nierozwiązanych kwestii – wszystkie istotne aspekty architektury UI zostały omówione. W przyszłości mogą pojawić się szczegółowe pytania dotyczące implementacji przepływów użytkownika lub konkretnej konfiguracji komponentów, w razie potrzeby dalsze wyjaśnienia będą wdrażane.
+1. Szczegóły dotyczące integracji JWT z mechanizmami Supabase oraz sposób zabezpieczenia tras w UI wymagają dalszego ustalenia.
+2. Konieczne jest doprecyzowanie szczegółowych breakpointów i strategii responsywności, mimo że obowiązują dobre praktyki.
+3. Dalsze wyjaśnienie dotyczące zaawansowanych interakcji komponentów (np. interaktywność wykresów) pozostaje do omówienia w kolejnych etapach rozwoju.
 </unresolved_issues>
 </conversation_summary>
-
 
 </session_notes>
 
