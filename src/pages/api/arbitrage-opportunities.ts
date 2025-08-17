@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 
 export const GET: APIRoute = async ({ url, locals }) => {
   try {
+
     // Use supabase client from locals (injected by middleware) or create new one
     const supabaseClient = locals.supabase || createClient(
       import.meta.env.SUPABASE_URL,
@@ -24,16 +25,10 @@ export const GET: APIRoute = async ({ url, locals }) => {
     // Calculate offset
     const offset = (page - 1) * limit;
 
-    // Build query
+    // Build query - temporarily without joins to debug
     let query = supabaseClient
       .from('arbitrage_opportunities')
-      .select(`
-        *,
-        assets!inner(symbol),
-        exchanges!exchange_id(name),
-        exchange_from:exchanges!exchange_from_id(name),
-        exchange_to:exchanges!exchange_to_id(name)
-      `)
+      .select('*')
       .order('timestamp', { ascending: false })
       .range(offset, offset + limit - 1);
 
@@ -90,18 +85,18 @@ export const GET: APIRoute = async ({ url, locals }) => {
 
     const { count: totalCount } = await totalQuery;
 
-    // Transform data for frontend
+    // Transform data for frontend - use data from additional_data for now
     const transformedData = opportunities?.map(opp => ({
       id: opp.id,
       timestamp: opp.timestamp,
       type: opp.type,
       asset: {
-        symbol: opp.assets.symbol,
-        name: opp.assets.symbol // Use symbol as name for now
+        symbol: opp.additional_data?.symbol || 'UNKNOWN',
+        name: opp.additional_data?.symbol || 'UNKNOWN'
       },
-      exchange: opp.exchanges?.name || null,
-      exchangeFrom: opp.exchange_from?.name || null,
-      exchangeTo: opp.exchange_to?.name || null,
+      exchange: opp.additional_data?.exchange || null,
+      exchangeFrom: null, // TODO: Get from proper join
+      exchangeTo: null,   // TODO: Get from proper join
       spreadPercentage: opp.spread_percentage,
       potentialProfitPercentage: opp.potential_profit_percentage,
       buyPrice: opp.buy_price,
