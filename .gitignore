@@ -17,6 +17,14 @@ test-report.html
 .env
 .env.local
 .env.test
+.env.example
+.env.local.backup
+.env.backup
+.env.temp
+
+prompts
+
+
 
 # Dependencies
 node_modules/
