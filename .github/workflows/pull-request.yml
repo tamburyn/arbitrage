@@ -66,8 +66,7 @@ jobs:
           path: test-results/
           retention-days: 7
 
-  # E2E tests and security audit temporarily disabled for faster PR validation
-  # TODO: Re-enable after basic workflow is working
+
 
   status-comment:
     name: PR Status Comment
@@ -123,9 +122,7 @@ jobs:
             echo "Coverage report not available"
           fi)
           
-          ### ℹ️ Notes
-          - E2E tests are temporarily disabled for faster PR validation
-          - Security audit is temporarily disabled
+
           
           **Workflow run**: [${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
           
